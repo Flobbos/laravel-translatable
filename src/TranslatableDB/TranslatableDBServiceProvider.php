@@ -19,7 +19,7 @@ class TranslatableServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/translatable.php', 'translatable'
+            __DIR__.'/../config/translatabledb.php', 'translatable'
         );
     }
 }
