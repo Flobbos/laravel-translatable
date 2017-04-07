@@ -12,11 +12,8 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 
 * [Demo](#demo)
 * [Laravel compatibility](#laravel-compatibility)
-* [Tutorial](#tutorial)
 * [Installation](#installation-in-4-steps)
 * [Configuration](#configuration)
-* [Features list](#features-list)
-* [Support](#faq)
 
 ## Demo
 
@@ -61,7 +58,7 @@ Next, add the service provider to `app/config/app.php`
 Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
 ```
 
-### Step 2: Migrations
+### Step 2a: Migrations method 1
 
 In this example, we want to translate the model `Country`. We will need an extra table `country_translations` amd 
 an extra table `languages`.
@@ -95,6 +92,47 @@ Schema::create('country_translations', function(Blueprint $table)
 });
 ```
 
+### Step 2b: Mitragions method 2
+
+```php
+
+Schema::create('languages', function(Blueprint $table)
+{
+    $table->increments('id');
+    $table->string('locale');
+    $table->string('name');
+}
+
+Schema::create('countries', function(Blueprint $table)
+{
+    $table->increments('id');
+    $table->string('code');
+    $table->string('name'); //the original name lives in this table
+    $table->timestamps();
+});
+
+Schema::create('country_translations', function(Blueprint $table)
+{
+    $table->increments('id');
+    $table->integer('country_id')->unsigned();
+    $table->string('name');
+    $table->string('language_id')->index();
+
+    $table->unique(['country_id','language_id']);
+    $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+    $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
+});
+```
+
+Method 2 assumes that your default translation lives in the same table as 
+the model that is to be translated. In this case you have to set:
+
+```php
+public $fallbackAttributes = ['name'];
+```
+
+The default translation will then be pulled from the original model's table.
+
 ### Step 3: Models
 
 1. The translatable model `Country` should [use the trait](http://www.sitepoint.com/using-traits-in-php-5-4/) `Flobbos\TranslatableDB\TranslatableDB`. 
@@ -108,7 +146,9 @@ class Country extends Eloquent {
     use \Flobbos\TranslatableDB\TranslatableDB;
     
     public $translatedAttributes = ['name'];
+    //public $fallbackAttributes = ['name']; //if method 2 was used
     protected $fillable = ['code'];
+    //protected $fillable = ['code','name']; //if method 2 was used
     
     /**
      * The relations to eager load on every query.
@@ -177,6 +217,4 @@ class Country extends Eloquent
 }
 
 ```
-
-## Features list
 

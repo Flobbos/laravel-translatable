@@ -23,7 +23,6 @@
             "Flobbos\\TranslatableDB\\": "src/TranslatableDB/"
         },
         "classmap": [
-            "tests"
         ]
     },
 
