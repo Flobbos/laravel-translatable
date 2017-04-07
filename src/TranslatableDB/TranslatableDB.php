@@ -218,7 +218,7 @@ trait TranslatableDB {
      */
     protected function getConfigKey($key){
         $config = app()->make('config');
-        return $config->get('translatable.'.$key);
+        return $config->get('translatabledb.'.$key);
     }
 
 }
