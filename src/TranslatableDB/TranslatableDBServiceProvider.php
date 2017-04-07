@@ -1,10 +1,10 @@
 <?php
 
-namespace Dimsav\Translatable;
+namespace Flobbos\TranslatableDB;
 
 use Illuminate\Support\ServiceProvider;
 
-class TranslatableServiceProvider extends ServiceProvider
+class TranslatableDBServiceProvider extends ServiceProvider
 {
     public function boot()
     {
