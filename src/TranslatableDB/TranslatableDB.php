@@ -65,10 +65,10 @@ trait TranslatableDB {
         list($attribute, $locale) = $this->getAttributeAndLocale($key);
         
         if ($this->isTranslationAttribute($attribute)) {
-            if ($this->getTranslation($locale) === null && !in_array($key, $this->fallbackAttributes)) {
+            if ($this->getTranslation($locale) === null && !in_array($key, $this->getFallbackAttributes())) {
                 return null;
             }
-            elseif($this->getTranslation($locale) === null && in_array($key, $this->fallbackAttributes)){
+            elseif($this->getTranslation($locale) === null && in_array($key, $this->getFallbackAttributes())){
                 
                 return parent::getAttribute($key);
             }
@@ -170,6 +170,14 @@ trait TranslatableDB {
     }
     
     /**
+     * Get fallback attributes if they are set
+     * @return array
+     */
+    protected function getFallbackAttributes(){
+        return $this->fallbackAttributes ?: [];
+    }
+
+    /**
      * Either get a string value from Laravel locale or a value from a lang array in config
      * @return string language key
      */
@@ -178,7 +186,7 @@ trait TranslatableDB {
         if($this->getConfigKey('use_db')){
             $class = $this->languageModel ?: $this->getConfigKey('language_model');
             $model = new $class;
-            $lang = $model->where('locale',app()->getLocale())->first();
+            $lang = $model->where('locale',$this->locale())->first();
             if(!is_null($lang)){
                 return $lang->id;
             }
@@ -187,12 +195,12 @@ trait TranslatableDB {
         //Config based configuration
         else{
             $lngArr = $this->getConfigKey('language_array');
-            if(!isset($lngArr[app()->getLocale()][$this->getLocaleKey()])){
+            if(!isset($lngArr[$this->locale()][$this->getLocaleKey()])){
                 return $this->getConfigKey('fallback_locale');
             }
-            return $lngArr[app()->getLocale()][$this->getLocaleKey()];
+            return $lngArr[$this->locale()][$this->getLocaleKey()];
         }
-        return app()->getLocale();
+        return $this->locale();
     }
     
     /**

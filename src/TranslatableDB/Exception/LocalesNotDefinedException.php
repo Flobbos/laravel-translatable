@@ -2,6 +2,5 @@
 
 namespace Flobbos\TranslatableDB\Exception;
 
-class LocalesNotDefinedException extends \Exception
-{
+class LocalesNotDefinedException extends \Exception{
 }
