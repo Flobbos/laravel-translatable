@@ -4,61 +4,62 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Locales
+    | Database driver
     |--------------------------------------------------------------------------
     |
-    | Contains an array with the applications available locales.
+    | If you prefer using the database to store your languages for 
+    | added flexibility set this to true and also set the proper
+    | values in the following config options
     |
     */
-    'locales' => [
-        'en',
-        'fr',
-        'es' => [
-            'MX', // mexican spanish
-            'CO', // colombian spanish
-        ],
+    'use_db' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Use Database
+    |--------------------------------------------------------------------------
+    |
+    | If you prefer using the database to store your languages for 
+    | added flexibility set this to true and also set the proper
+    | values in the following config options
+    |
+    */
+    'language_model' => 'App\Language',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Language Array
+    |--------------------------------------------------------------------------
+    |
+    | If you are not using the database for your languages you can
+    | setup a language array here. The default is provided as a guideline.
+    | The language_id parameter is the identifier for the translation model
+    |
+    */
+    'language_array'        => [
+	    'de' => ['name' => 'Deutsch', 'language_id' => '1'],
+	    'en' => ['name' => 'English', 'language_id' => '2'],
+	    'fr' => ['name' => 'Français', 'language_id' => '3']
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Locale separator
-    |--------------------------------------------------------------------------
-    |
-    | This is a string used to glue the language and the country when defining
-    | the available locales. Example: if set to '-', then the locale for
-    | colombian spanish will be saved as 'es-CO' into the database.
-    |
-    */
-    'locale_separator' => '-',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default locale
-    |--------------------------------------------------------------------------
-    |
-    | As a default locale, Translatable takes the locale of Laravel's
-    | translator. If for some reason you want to override this,
-    | you can specify what default should be used here.
-    |
-    */
-    'locale' => null,
-
+    
     /*
     |--------------------------------------------------------------------------
     | Use fallback
     |--------------------------------------------------------------------------
     |
-    | Determine if fallback locales are returned by default or not. To add
-    | more flexibility and configure this option per "translatable"
-    | instance, this value will be overridden by the property
-    | $useTranslationFallback when defined
+    | Determine if fallback locales are returned by default or not. If 
+    | set to true, translatable will try and get a the default translation
+    | defined in the following option. If set to false, translatable assumes
+    | that your default values are stored in the same table as the main model
+    | and will try to get the values from there as defined in the
+    | $fallbackAttributes array option. If not found, null will be returned.
     |
     */
     'use_fallback' => false,
-
+    
     /*
     |--------------------------------------------------------------------------
-    | Fallback Locale
+    | Fallback Locale (config based)
     |--------------------------------------------------------------------------
     |
     | A fallback locale is the locale being used to return a translation
@@ -66,19 +67,19 @@ return [
     | set it to false.
     |
     */
-    'fallback_locale' => 'en',
-
+    'fallback_locale' => 'de',
+    
     /*
     |--------------------------------------------------------------------------
-    | Translation Suffix
+    | Fallback Locale ID (database)
     |--------------------------------------------------------------------------
     |
-    | Defines the default 'Translation' class suffix. For example, if
-    | you want to use CountryTrans instead of CountryTranslation
-    | application, set this to 'Trans'.
+    | Just like the fallback_locale above this does the exact same thing
+    | but only applies if driver is set to database and returns the default
+    | language ID.
     |
     */
-    'translation_suffix' => 'Translation',
+    'fallback_locale_id' => 1,
 
     /*
     |--------------------------------------------------------------------------
@@ -89,7 +90,7 @@ return [
     | translation model.
     |
     */
-    'locale_key' => 'locale',
+    'locale_key' => 'language_id',
 
     /*
     |--------------------------------------------------------------------------
