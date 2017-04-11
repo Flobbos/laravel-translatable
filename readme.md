@@ -191,7 +191,7 @@ With this command, initialize the configuration and modify the created file, loc
 
 ### The config file
 
-You can see the options for further customization in the [config file](src/config/translatable.php).
+You can see the options for further customization in the [config file](src/config/translatabledb.php).
 
 ### The translation model
 
