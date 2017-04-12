@@ -44,12 +44,12 @@ trait TranslatableDB {
      * @param bool $withFallback return untranslated attribute if no translation is found
      * @return string
      */
-    public function translate(){
-        return $this->getTranslation($withFallback);
+    public function translate($locale = null){
+        return $this->getTranslation($locale);
     }
     
-    public function getTranslation(){
-        $locale = $this->getLocale();
+    public function getTranslation($locale = null){
+        $locale = $locale ?:$this->getLocale();
         if ($translation = $this->getTranslationByLocaleKey($locale)) {
             return $translation;
         }
@@ -63,9 +63,8 @@ trait TranslatableDB {
      */
     public function getAttribute($key){
         list($attribute, $locale) = $this->getAttributeAndLocale($key);
-        
+
         $translation = null;
-        
         //If Fallback is used
         if ($this->isTranslationAttribute($attribute) && $this->useFallback()) {
             if (is_null($this->getTranslation($locale)) && !in_array($key, $this->getFallbackAttributes())) {
