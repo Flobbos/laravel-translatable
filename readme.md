@@ -35,16 +35,16 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 
  Laravel  | Translatable
 :---------|:----------
- 5.4      | 1.*
- 5.3      | 1.*
- 5.2      | 1.*
- 5.1      | 1.*
+ 5.4      | 1.3.*
+ 5.3      | 1.3.*
+ 5.2      | 1.3.*
+ 5.1      | 1.3.*
 
 
 
-## Installation in 4 steps
+## Installation
 
-### Step 1: Install package
+### Install package
 
 Add the package in your composer.json by executing the command.
 
@@ -58,7 +58,7 @@ Next, add the service provider to `app/config/app.php`
 Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
 ```
 
-### Step 2a: Migrations method 1
+### Migrations method 1
 
 In this example, we want to translate the model `Country`. We will need an extra table `country_translations` amd 
 an extra table `languages`.
@@ -92,7 +92,7 @@ Schema::create('country_translations', function(Blueprint $table)
 });
 ```
 
-### Step 2b: Mitragions method 2
+### Migrations method 2
 
 ```php
 
@@ -185,13 +185,12 @@ php artisan vendor:publish
 
 With this command, initialize the configuration and modify the created file, located under `app/config/packages/flobbos/laravel-translatable-db/translatable.php`.
 
-*Note: There isn't any restriction for the format of the locales. Feel free to use whatever suits you better, like "eng" instead of "en", or "el" instead of "gr".  The important is to define your locales and stick to them.*
 
 ## Configuration
 
 ### The config file
 
-You can see the options for further customization in the [config file](src/config/translatable.php).
+You can see the options for further customization in the [config file](src/config/translatabledb.php).
 
 ### The translation model
 
@@ -211,7 +210,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Country extends Eloquent
 {
-    use Translatable;
+    use TranslatableDB;
 
     public $translationModel = 'MyApp\Models\CountryAwesomeTranslation';
 }

@@ -55,7 +55,20 @@ return [
     | $fallbackAttributes array option. If not found, null will be returned.
     |
     */
-    'use_fallback' => false,
+    'use_fallback' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Native mode
+    |--------------------------------------------------------------------------
+    |
+    | If native mode is set to true it is assumed that the fallback translation
+    | resides in the same table as the model that needs to be translated. If set
+    | to false the fallback translation should be located in the translation
+    | table.
+    |
+    */
+    'native_mode' => true,
     
     /*
     |--------------------------------------------------------------------------
