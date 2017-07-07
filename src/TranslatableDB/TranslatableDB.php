@@ -44,12 +44,12 @@ trait TranslatableDB {
      * @param bool $withFallback return untranslated attribute if no translation is found
      * @return string
      */
-    public function translate($withFallback = true){
-        return $this->getTranslation($withFallback);
+    public function translate($locale = null){
+        return $this->getTranslation($locale);
     }
     
-    public function getTranslation($withFallback = true){
-        $locale = $this->getLocale();
+    public function getTranslation($locale = null){
+        $locale = $locale ?:$this->getLocale();
         if ($translation = $this->getTranslationByLocaleKey($locale)) {
             return $translation;
         }
@@ -63,22 +63,48 @@ trait TranslatableDB {
      */
     public function getAttribute($key){
         list($attribute, $locale) = $this->getAttributeAndLocale($key);
-        
-        if ($this->isTranslationAttribute($attribute)) {
-            if ($this->getTranslation($locale) === null && !in_array($key, $this->getFallbackAttributes())) {
+
+        $translation = null;
+        //If Fallback is used
+        if ($this->isTranslationAttribute($attribute) && $this->useFallback()) {
+            if (is_null($this->getTranslation($locale)) && !in_array($key, $this->getFallbackAttributes())) {
                 return null;
             }
-            elseif($this->getTranslation($locale) === null && in_array($key, $this->getFallbackAttributes())){
-                
-                return parent::getAttribute($key);
+            elseif(is_null($this->getTranslation($locale)) && in_array($key, $this->getFallbackAttributes())){
+                if($this->nativeMode()){
+                    return parent::getAttribute($key);
+                }
+                elseif(!is_null($this->getTranslation($this->getFallbackKey()))){
+                    $translation = $this->getTranslation($this->getFallbackKey())->$attribute;
+                }
+                else{
+                    return null;
+                }
+            }
+            else{
+                $translation = $this->getTranslation($locale)->$attribute;
             }
             // If the given $attribute has a mutator, we push it to $attributes and then call getAttributeValue
             // on it. This way, we can use Eloquent's checking for Mutation, type casting, and
             // Date fields.
             if ($this->hasGetMutator($attribute)) {
+                $this->attributes[$attribute] = $translation;
+                return $this->getAttributeValue($attribute);
+            }
+            return $translation;
+        }
+        //No fallback in use
+        elseif($this->isTranslationAttribute($attribute)){
+            //If there's no translation
+            if ($this->getTranslation($locale) === null) {
+                return null;
+            }
+            //Check for Mutator
+            if ($this->hasGetMutator($attribute)) {
                 $this->attributes[$attribute] = $this->getTranslation($locale)->$attribute;
                 return $this->getAttributeValue($attribute);
             }
+            //Return translation
             return $this->getTranslation($locale)->$attribute;
         }
         return parent::getAttribute($key);
@@ -176,7 +202,34 @@ trait TranslatableDB {
     protected function getFallbackAttributes(){
         return $this->fallbackAttributes ?: [];
     }
-
+    
+    /**
+     * Check if fallback should be used.
+     * @return bool
+     */
+    protected function useFallback(){
+        return $this->getConfigKey('use_fallback');
+    }
+    
+    /**
+     * Detect if native mode fallback is to be used
+     * @return bool
+     */
+    protected function nativeMode(){
+        return $this->getConfigKey('native_mode');
+    }
+    
+    /**
+     * Get the fallback key 
+     * @return mixed string locale or int ID
+     */
+    protected function getFallbackKey(){
+        if(!$this->getConfigKey('use_db')){
+            return $this->getConfigKey('fallback_locale');
+        }
+        return $this->getConfigKey('fallback_locale_id');
+    }
+    
     /**
      * Either get a string value from Laravel locale or a value from a lang array in config
      * @return string language key
