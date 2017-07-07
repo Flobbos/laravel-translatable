@@ -12,7 +12,7 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 
 * [Demo](#demo)
 * [Laravel compatibility](#laravel-compatibility)
-* [Installation](#installation-in-4-steps)
+* [Installation](#installation)
 * [Configuration](#configuration)
 
 ## Demo
