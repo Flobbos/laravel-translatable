@@ -91,6 +91,18 @@ return [
     |
     */
     'locale_key' => 'language_id',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Locale column name
+    |--------------------------------------------------------------------------
+    |
+    | This defines the locale column in your language table. By default it is
+    | assumed that it's named 'locale' (for 'de','en' etc.) if this doesn't 
+    | suit your database structure you can define a different column name here.
+    |
+    */
+    'locale_column' => 'locale',
 
     /*
     |--------------------------------------------------------------------------

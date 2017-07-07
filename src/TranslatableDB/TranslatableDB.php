@@ -186,7 +186,7 @@ trait TranslatableDB {
         if($this->getConfigKey('use_db')){
             $class = $this->languageModel ?: $this->getConfigKey('language_model');
             $model = new $class;
-            $lang = $model->where('locale',$this->locale())->first();
+            $lang = $model->where($this->getConfigKey('locale_column'),$this->locale())->first();
             if(!is_null($lang)){
                 return $lang->id;
             }
