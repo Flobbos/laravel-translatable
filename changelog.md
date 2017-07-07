@@ -1,5 +1,10 @@
 ## Version History
 
+### v. 1.3.5
+
+- added config option for locale column
+- removed support for Laravel < 5.3
+
 ### v. 1.3.2
 
 - added switch to native mode

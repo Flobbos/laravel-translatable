@@ -37,8 +37,6 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 :---------|:----------
  5.4      | 1.3.*
  5.3      | 1.3.*
- 5.2      | 1.3.*
- 5.1      | 1.3.*
 
 
 
@@ -173,12 +171,7 @@ The array `$translatedAttributes` contains the names of the fields being transla
 
 ### Step 4: Configuration
 
-Laravel 4.*
-```bash
-php artisan config:publish flobbos/laravel-translatable-db
-```
-
-Laravel 5.*
+Laravel ^5.3.*
 ```bash
 php artisan vendor:publish 
 ```
