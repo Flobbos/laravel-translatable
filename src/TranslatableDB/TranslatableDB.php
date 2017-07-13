@@ -40,6 +40,14 @@ trait TranslatableDB {
     }
     
     /**
+     * Retrieve the currently set languageModel or from config
+     * @return string
+     */
+    public function getLanguageModelName(){
+        return isset($this->languageModel) ? $this->languageModel : $this->getConfigKey('language_model');
+    }
+    
+    /**
      * Main translation function to spit out translation based on locale
      * @param bool $withFallback return untranslated attribute if no translation is found
      * @return string
@@ -155,7 +163,7 @@ trait TranslatableDB {
         if (str_contains($key, ':')) {
             return explode(':', $key);
         }
-        return [$key, $this->locale()];
+        return [$key, $this->getLocale()];
     }
     
     public function getRelationKey(){
@@ -237,7 +245,7 @@ trait TranslatableDB {
     public function getLocale(){
         //Database configuration
         if($this->getConfigKey('use_db')){
-            $class = $this->languageModel ?: $this->getConfigKey('language_model');
+            $class =  $this->getLanguageModelName();
             $model = new $class;
             $lang = $model->where($this->getConfigKey('locale_column'),$this->locale())->first();
             if(!is_null($lang)){
