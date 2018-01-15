@@ -50,7 +50,7 @@ Add the package in your composer.json by executing the command.
 composer require flobbos/laravel-translatable-db
 ```
 
-Next, add the service provider to `app/config/app.php`
+Next, add the service provider to `config/app.php`
 
 ```
 Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
