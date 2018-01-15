@@ -58,7 +58,7 @@ Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
 
 ### Migrations method 1
 
-In this example, we want to translate the model `Country`. We will need an extra table `country_translations` amd 
+In this example, we want to translate the model `Country`. We will need an extra table `country_translations` and 
 an extra table `languages`.
 
 ```php
