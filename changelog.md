@@ -1,5 +1,13 @@
 ## Version History
 
+### v. 1.4.1
+
+- fixed problem with loading fallback attributes in toArray
+
+### v. 1.4.0
+
+- fixed issue with accessing attributes directly
+
 ### v. 1.3.5
 
 - added config option for locale column

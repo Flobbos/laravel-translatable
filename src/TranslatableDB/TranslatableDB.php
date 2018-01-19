@@ -123,6 +123,9 @@ trait TranslatableDB {
             if ($translation->getAttribute($this->getLocaleKey()) == $key) {
                 return $translation;
             }
+            elseif($this->useFallback() && $translation->getAttribute($this->getLocaleKey()) == $this->getFallbackKey()){
+                return $translation;
+            }
         }
         return null;
     }
