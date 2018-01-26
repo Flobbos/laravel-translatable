@@ -118,14 +118,16 @@ trait TranslatableDB {
         return parent::getAttribute($key);
     }
     
-    private function getTranslationByLocaleKey($key){
+    private function getTranslationByLocaleKey($key, $try_fallback = true){
         foreach ($this->translations as $translation) {
             if ($translation->getAttribute($this->getLocaleKey()) == $key) {
                 return $translation;
             }
-            elseif($this->useFallback() && $translation->getAttribute($this->getLocaleKey()) == $this->getFallbackKey()){
-                return $translation;
-            }
+        }
+        //We're still here so nothing was sent
+        //try the fallback if needed and not tried yet
+        if($this->useFallback() && $try_fallback){
+            return $this->getTranslationByLocaleKey($this->getFallbackKey(), false);
         }
         return null;
     }

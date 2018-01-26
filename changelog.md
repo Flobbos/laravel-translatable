@@ -1,5 +1,9 @@
 ## Version History
 
+### v. 1.4.2
+
+- fixed crucial mistake for getting fallback translations
+
 ### v. 1.4.1
 
 - fixed problem with loading fallback attributes in toArray
