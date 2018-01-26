@@ -19,9 +19,7 @@ return [
     | Use Database
     |--------------------------------------------------------------------------
     |
-    | If you prefer using the database to store your languages for 
-    | added flexibility set this to true and also set the proper
-    | values in the following config options
+    | Eloquent model to be used for languages
     |
     */
     'language_model' => 'App\Language',
