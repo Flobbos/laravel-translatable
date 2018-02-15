@@ -35,8 +35,9 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 
  Laravel  | Translatable
 :---------|:----------
- 5.4      | 1.3.*
- 5.3      | 1.3.*
+ 5.5      | 1.4.*
+ 5.4      | 1.4.*
+ 5.3      | 1.4.*
 
 
 
@@ -144,7 +145,7 @@ class Country extends Eloquent {
     use \Flobbos\TranslatableDB\TranslatableDB;
     
     public $translatedAttributes = ['name'];
-    //public $fallbackAttributes = ['name']; //if method 2 was used
+    public $fallbackAttributes = ['name']; 
     protected $fillable = ['code'];
     //protected $fillable = ['code','name']; //if method 2 was used
     

@@ -1,6 +1,6 @@
 ## Version History
 
-### v. 1.4.2
+### v. 1.4.3
 
 - updated package to rely on middleware for language ID
 - fixed issue with n queries running on translations
