@@ -11,6 +11,8 @@ class TranslatableDBServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/translatabledb.php' => config_path('translatabledb.php'),
         ]);
+        //Register the middleware
+        $this->app['Illuminate\Contracts\Http\Kernel']->pushMiddleware(Middleware\LanguageIdentification::class);
     }
 
     /**

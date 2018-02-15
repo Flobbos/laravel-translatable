@@ -248,25 +248,7 @@ trait TranslatableDB {
      * @return string language key
      */
     public function getLocale(){
-        //Database configuration
-        if($this->getConfigKey('use_db')){
-            $class =  $this->getLanguageModelName();
-            $model = new $class;
-            $lang = $model->where($this->getConfigKey('locale_column'),$this->locale())->first();
-            if(!is_null($lang)){
-                return $lang->id;
-            }
-            return $this->getConfigKey('use_fallback') ? $this->getConfigKey('fallback_locale_id') :null;
-        }
-        //Config based configuration
-        else{
-            $lngArr = $this->getConfigKey('language_array');
-            if(!isset($lngArr[$this->locale()][$this->getLocaleKey()])){
-                return $this->getConfigKey('fallback_locale');
-            }
-            return $lngArr[$this->locale()][$this->getLocaleKey()];
-        }
-        return $this->locale();
+        return request()->get('language_id')?:$this->locale();
     }
     
     /**

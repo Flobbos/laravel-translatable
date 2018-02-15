@@ -2,6 +2,11 @@
 
 ### v. 1.4.2
 
+- updated package to rely on middleware for language ID
+- fixed issue with n queries running on translations
+
+### v. 1.4.2
+
 - fixed crucial mistake for getting fallback translations
 
 ### v. 1.4.1
