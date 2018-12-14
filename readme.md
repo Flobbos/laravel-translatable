@@ -14,7 +14,7 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 * [Laravel compatibility](#laravel-compatibility)
 * [Installation](#installation)
 * [Configuration](#configuration)
-* [Translation Model](#translation model)
+* [Translation Model](#translation-model)
 * [Middleware](#middleware)
 
 ## Demo
