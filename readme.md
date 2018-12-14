@@ -172,7 +172,7 @@ class CountryTranslation extends Eloquent {
 
 The array `$translatedAttributes` contains the names of the fields being translated in the "Translation" model.
 
-### Step 4: Configuration
+### Step 4: Publish config
 
 Laravel ^5.3.*
 ```bash
