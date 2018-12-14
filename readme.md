@@ -14,6 +14,8 @@ This is a Laravel package for translatable models. Its goal is to remove the com
 * [Laravel compatibility](#laravel-compatibility)
 * [Installation](#installation)
 * [Configuration](#configuration)
+* [Translation Model](#translation model)
+* [Middleware](#middleware)
 
 ## Demo
 
@@ -177,16 +179,115 @@ Laravel ^5.3.*
 php artisan vendor:publish 
 ```
 
-With this command, initialize the configuration and modify the created file, located under `app/config/packages/flobbos/laravel-translatable-db/translatable.php`.
+With this command, initialize the configuration and modify the created file, located under `app/config/translatable.php`.
 
 
 ## Configuration
 
-### The config file
+### DB Usage
 
-You can see the options for further customization in the [config file](src/config/translatabledb.php).
+If you want to load languages from a table in the datbase you need to set this
+to true in the config.
 
-### The translation model
+```php
+    'use_db' => true,
+```
+
+### Language model
+
+The language model is set to `App\Language` by default but it can be anything
+you want.
+
+```php
+    'language_model' => 'App\Whatever'
+```
+
+### Language array
+
+If you prefer to use the config file for storing your language based information
+you can setup the language array to your needs. We will still be relying on
+the language_id as the identifier for each language. 
+
+```php 
+    'language_array'        => [
+        'de' => ['name' => 'Deutsch', 'language_id' => '1'],
+        'en' => ['name' => 'English', 'language_id' => '2'],
+        'fr' => ['name' => 'Français', 'language_id' => '3']
+    ]
+```
+
+### Fallback
+
+Sometimes translations can be missing. In this case we can use a fallback 
+translation to prevent missing content on a page. 
+
+```php
+    'use_fallback' => true,
+```
+
+If you don't want to use a fallback, simply set this to false and you will get
+`null` if there's no suitable translation available.
+
+### Default fallback
+
+The default fallback varies depending on DB or non-DB usage in the package. You
+can set these options in the config with either:
+
+```php
+    'fallback_locale' => 'de'
+```
+
+or
+
+```php
+    'fallback_locale_id' => 1,
+```
+
+### Native mode
+
+Sometimes content has already been added to a table that later needs to be translated.
+To prevent the mess of migrating existing content into our translation tables 
+we have the option to use native mode. This will assume the default content lives
+in the table of the translated model. 
+
+```php
+    'native_mode' => true
+```
+
+### Locale key
+
+The key used for finding the corresponding translation in our translations table.
+We assume language_id as this is used throughout the package but it can be whatever
+you set it to be here.
+
+```php
+    'locale_key' => 'language_id',
+```
+
+This will also set the value pushed into the request by the middleware. 
+
+### Locale column
+
+We need to identify the current locale by calling `app()->getLocale()` and find
+the corresponding language in the database. In case your language identifier is 
+called something other than 'locale' in the DB, you can set it here:
+
+```php
+    'locale_column' => 'locale',
+```
+
+### toArray translations
+
+It gets tricky when your translated models are output in an array or JSON format.
+If the translation isn't loaded into the model it will get omitted when either
+function is called. With this setting you can force the translation into the model. 
+Beware of unnecessary n-queries!
+
+```php
+    'to_array_always_loads_translations' => true,
+```
+
+## Translation Model
 
 The convention used to define the class of the translation model is to append the keyword `Translation`.
 
@@ -210,4 +311,25 @@ class Country extends Eloquent
 }
 
 ```
+
+## Middleware
+
+### Default
+
+By default the middleware is pushed into the kernel by the service provider. 
+If DB use is set to true in the config, the middleware resolves the language
+model set in the config and loads the 'language_id' parameter into every request.
+With this language_id property the corresponding translation is automatically
+loaded into the model. 
+
+### Custom
+
+If you only want specific routes to load translated content from the DB you can
+set this in the config:
+
+```php
+    'middleware_default' => false
+```
+
+Then you need to manually register the middleware for the routes where needed.
 

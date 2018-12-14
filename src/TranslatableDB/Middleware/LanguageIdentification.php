@@ -31,7 +31,7 @@ class LanguageIdentification{
             }
         }
         
-        $request->attributes->add(['language_id'=>$lang_id]);
+        $request->attributes->add([config('translatabledb.locale_key')=>$lang_id]);
         return $next($request);
     }
 }

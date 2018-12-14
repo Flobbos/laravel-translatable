@@ -57,19 +57,6 @@ return [
     
     /*
     |--------------------------------------------------------------------------
-    | Native mode
-    |--------------------------------------------------------------------------
-    |
-    | If native mode is set to true it is assumed that the fallback translation
-    | resides in the same table as the model that needs to be translated. If set
-    | to false the fallback translation should be located in the translation
-    | table.
-    |
-    */
-    'native_mode' => true,
-    
-    /*
-    |--------------------------------------------------------------------------
     | Fallback Locale (config based)
     |--------------------------------------------------------------------------
     |
@@ -91,6 +78,19 @@ return [
     |
     */
     'fallback_locale_id' => 1,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Native mode
+    |--------------------------------------------------------------------------
+    |
+    | If native mode is set to true it is assumed that the fallback translation
+    | resides in the same table as the model that needs to be translated. If set
+    | to false the fallback translation should be located in the translation
+    | table.
+    |
+    */
+    'native_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -98,7 +98,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Defines the 'locale' field name, which is used by the
-    | translation model.
+    | translation model. This will also define the value pushed into the request
+    | by the middleware.
     |
     */
     'locale_key' => 'language_id',
@@ -125,4 +126,16 @@ return [
     |
      */
     'to_array_always_loads_translations' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Load translation ID into every route
+    |--------------------------------------------------------------------------
+    | By setting this to false the middleware that provides the language ID
+    | parameter will only be loaded into the routes you specify by manually
+    | inserting the middleware as desired. If set to true the middleware will
+    | be loaded upon every request. 
+    |
+     */
+    'middleware_default' => true,
 ];
