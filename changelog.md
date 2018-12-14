@@ -1,5 +1,10 @@
 ## Version History
 
+### v. 1.4.4
+
+- added optional middleware setting
+- added customizable language key
+
 ### v. 1.4.3
 
 - updated package to rely on middleware for language ID
