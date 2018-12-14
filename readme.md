@@ -4,9 +4,16 @@ Laravel-Translatable-DB
 
 ![Laravel Translatable DB](img/laravel-translatable.png)
 
-**If you want to store translations of your models into the database, this package is for you.**
+**Adding multilingual support to your models with ease**
 
-This is a Laravel package for translatable models. Its goal is to remove the complexity in retrieving and storing multilingual model instances. With this package you write less code, as the translations are being fetched/saved when you fetch/save your instance.
+The package is based on Based on https://github.com/dimsav/laravel-translatable
+but with the added twist of loading the translation based on a `language_id` rather
+than a string based `locale` from the translations tables.
+
+The package simply deals with retrieving translated content. If you want an 
+easy way of storing your content you should check out https://github.com/Flobbos/laravel-crudable
+which deals with saving content in your database in a compatible way. 
+
 
 ### Docs
 
