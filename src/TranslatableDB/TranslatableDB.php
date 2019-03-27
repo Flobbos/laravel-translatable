@@ -58,7 +58,7 @@ trait TranslatableDB {
     
     public function getTranslation($locale = null){
         $locale = $locale ?:$this->getLocale();
-        if ($translation = $this->getTranslationByLocaleKey($locale)) {
+        if ($translation = $this->getTranslationByLocaleKey($locale,false)) {
             return $translation;
         }
         return null;
