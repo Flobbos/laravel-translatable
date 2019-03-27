@@ -60,7 +60,8 @@ Add the package in your composer.json by executing the command.
 composer require flobbos/laravel-translatable-db
 ```
 
-Next, add the service provider to `config/app.php`
+Next, add the service provider to `config/app.php`. This step is not necessary
+if auto discover didn't work. 
 
 ```
 Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
@@ -292,6 +293,15 @@ Beware of unnecessary n-queries!
 
 ```php
     'to_array_always_loads_translations' => true,
+```
+
+### middleware_default
+
+If you don't want to use the middleware on all routes, then set this to false
+and add the middleware where needed.
+
+```php
+    'middleware_default' => false
 ```
 
 ## Translation Model

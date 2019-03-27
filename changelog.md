@@ -4,6 +4,8 @@
 
 - added optional middleware setting
 - added customizable language key
+- fixed fallback bug that caused the fallback to always being used instead of
+  selectively like it was intended
 
 ### v. 1.4.3
 
