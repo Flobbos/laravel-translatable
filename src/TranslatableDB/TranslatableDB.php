@@ -150,8 +150,13 @@ trait TranslatableDB {
             if (in_array($field, $hiddenAttributes)) {
                 continue;
             }
-
-            if ($translations = $this->getTranslation()) {
+            //Load translations
+            $translations = $this->getTranslation();
+            if(!$translations && $this->useFallback()){
+                //Get fallback
+                $translations = $this->getTranslation($this->getFallbackKey());
+            }
+            if($translations) {
                 $attributes[$field] = $translations->$field;
             }
         }
