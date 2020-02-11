@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Str;
 
 trait TranslatableDB {
     
@@ -170,7 +171,7 @@ trait TranslatableDB {
      * @return array
      */
     private function getAttributeAndLocale($key){
-        if (str_contains($key, ':')) {
+        if (Str::contains($key, ':')) {
             return explode(':', $key);
         }
         return [$key, $this->getLocale()];
