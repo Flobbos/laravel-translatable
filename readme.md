@@ -322,12 +322,40 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Country extends Eloquent
 {
-    use TranslatableDB;
+    use TranslatableDB\TranslatableDB;
 
-    public $translationModel = 'MyApp\Models\CountryAwesomeTranslation';
+    public $translationModel = MyApp\Models\CountryAwesomeTranslation::class;
 }
 
 ```
+
+## Polymorphic translations
+
+Sometimes translations are in a polymorphic table. In order to make this work you
+need to make the following changes to your model.
+
+```php
+
+namespace MyApp\Models;
+
+use Flobbos\TranslatableDB\TranslatableDB;
+use Flobbos\TranslatableDB\Contracts\PolyTrans;
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Country extends Eloquent implements PolyTrans
+{
+    use TranslatableDB;
+
+    public $translationModel = MyApp\Models\CountryAwesomeTranslation::class;
+    //Set your polymorphic key here
+    protected $translationForeignKey = 'translatable';
+}
+```
+
+By implementing the PolyTrans contract TranslatableDB knows that it needs to 
+handle translations differently. The translation key needs to be set as well
+because otherwise TranslatableDB will assume the key automatically which doesn't
+work with a polymorphic relationship. 
 
 ## Middleware
 

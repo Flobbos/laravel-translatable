@@ -1,5 +1,17 @@
 ## Version History
 
+### v. 1.4.7
+
+- added option for working with polymorphic translations
+
+### v. 1.4.6
+
+- fixed support for Laravel 6
+
+### v. 1.4.5 
+
+- Fixed a bug where fallback translations weren't being loaded.
+
 ### v. 1.4.4
 
 - added optional middleware setting
