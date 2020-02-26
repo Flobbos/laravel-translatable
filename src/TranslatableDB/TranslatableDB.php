@@ -2,12 +2,12 @@
 
 namespace Flobbos\TranslatableDB;
 
-use App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Str;
+use Flobbos\TranslatableDB\Contracts\PolyTrans;
 
 trait TranslatableDB {
     
@@ -18,9 +18,12 @@ trait TranslatableDB {
     
     /**
      * Define translation relationship
-     * @return type
+     * @return Builder
      */
     public function translations(){
+        if($this instanceof PolyTrans){
+            return $this->morphMany($this->getTranslationModelName(),$this->getRelationKey());
+        }
         return $this->hasMany($this->getTranslationModelName(),$this->getRelationKey());
     }
     

@@ -138,4 +138,14 @@ return [
     |
      */
     'middleware_default' => true,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Handle polymorphic translations
+    |--------------------------------------------------------------------------
+    | By setting this to true TranslatableDB will assume that your translations
+    | are set up with a polymorphic table and act accordingly.
+    |
+     */
+    'polymorphic' => false,
 ];

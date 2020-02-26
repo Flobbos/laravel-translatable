@@ -3,3 +3,7 @@ composer.lock
 coverage/
 /nbproject/private/
 /nbproject
+.buildpath
+.project
+.idea
+.settings
