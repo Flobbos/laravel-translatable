@@ -1,6 +1,4 @@
-Laravel-Translatable-DB
-====================
-
+# Laravel-Translatable-DB
 
 ![Laravel Translatable DB](img/laravel-translatable.png)
 
@@ -10,19 +8,18 @@ The package is based on Based on https://github.com/dimsav/laravel-translatable
 but with the added twist of loading the translation based on a `language_id` rather
 than a string based `locale` from the translations tables.
 
-The package simply deals with retrieving translated content. If you want an 
+The package simply deals with retrieving translated content. If you want an
 easy way of storing your content you should check out https://github.com/Flobbos/laravel-crudable
-which deals with saving content in your database in a compatible way. 
-
+which deals with saving content in your database in a compatible way.
 
 ### Docs
 
-* [Demo](#demo)
-* [Laravel compatibility](#laravel-compatibility)
-* [Installation](#installation)
-* [Configuration](#configuration)
-* [Translation Model](#translation-model)
-* [Middleware](#middleware)
+-   [Demo](#demo)
+-   [Laravel compatibility](#laravel-compatibility)
+-   [Installation](#installation)
+-   [Configuration](#configuration)
+-   [Translation Model](#translation-model)
+-   [Middleware](#middleware)
 
 ## Demo
 
@@ -31,7 +28,7 @@ which deals with saving content in your database in a compatible way.
 ```php
   $greece = Country::where('code', 'gr')->first();
   echo $greece->translate('en')->name; // Greece
-  
+
   App::setLocale('en');
   echo $greece->name;     // Greece
 
@@ -39,16 +36,19 @@ which deals with saving content in your database in a compatible way.
   echo $greece->name;     // Griechenland
 ```
 
-
 ## Laravel compatibility
 
- Laravel  | Translatable
-:---------|:----------
- 5.5      | 1.4.*
- 5.4      | 1.4.*
- 5.3      | 1.4.*
-
-
+| Laravel | Translatable |
+| :------ | :----------- |
+| 8.x     | 1.4.\*       |
+| 7.x     | 1.4.\*       |
+| 6.x     | 1.4.\*       |
+| 5.8     | 1.4.\*       |
+| 5.7     | 1.4.\*       |
+| 5.6     | 1.4.\*       |
+| 5.5     | 1.4.\*       |
+| 5.4     | 1.4.\*       |
+| 5.3     | 1.4.\*       |
 
 ## Installation
 
@@ -61,7 +61,7 @@ composer require flobbos/laravel-translatable-db
 ```
 
 Next, add the service provider to `config/app.php`. This step is not necessary
-if auto discover didn't work. 
+if auto discover didn't work.
 
 ```
 Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
@@ -69,7 +69,7 @@ Flobbos\TranslatableDB\TranslatableDBServiceProvider::class,
 
 ### Migrations method 1
 
-In this example, we want to translate the model `Country`. We will need an extra table `country_translations` and 
+In this example, we want to translate the model `Country`. We will need an extra table `country_translations` and
 an extra table `languages`.
 
 ```php
@@ -133,7 +133,7 @@ Schema::create('country_translations', function(Blueprint $table)
 });
 ```
 
-Method 2 assumes that your default translation lives in the same table as 
+Method 2 assumes that your default translation lives in the same table as
 the model that is to be translated. In this case you have to set:
 
 ```php
@@ -144,21 +144,20 @@ The default translation will then be pulled from the original model's table.
 
 ### Step 3: Models
 
-1. The translatable model `Country` should [use the trait](http://www.sitepoint.com/using-traits-in-php-5-4/) `Flobbos\TranslatableDB\TranslatableDB`. 
+1. The translatable model `Country` should [use the trait](http://www.sitepoint.com/using-traits-in-php-5-4/) `Flobbos\TranslatableDB\TranslatableDB`.
 2. The convention for the translation model is `CountryTranslation`.
-
 
 ```php
 // models/Country.php
 class Country extends Eloquent {
-    
+
     use \Flobbos\TranslatableDB\TranslatableDB;
-    
+
     public $translatedAttributes = ['name'];
-    public $fallbackAttributes = ['name']; 
+    public $fallbackAttributes = ['name'];
     protected $fillable = ['code'];
     //protected $fillable = ['code','name']; //if method 2 was used
-    
+
     /**
      * The relations to eager load on every query.
      *
@@ -182,13 +181,13 @@ The array `$translatedAttributes` contains the names of the fields being transla
 
 ### Step 4: Publish config
 
-Laravel ^5.3.*
+Laravel ^5.3.\*
+
 ```bash
-php artisan vendor:publish 
+php artisan vendor:publish
 ```
 
 With this command, initialize the configuration and modify the created file, located under `app/config/translatable.php`.
-
 
 ## Configuration
 
@@ -214,9 +213,9 @@ you want.
 
 If you prefer to use the config file for storing your language based information
 you can setup the language array to your needs. We will still be relying on
-the language_id as the identifier for each language. 
+the language_id as the identifier for each language.
 
-```php 
+```php
     'language_array'        => [
         'de' => ['name' => 'Deutsch', 'language_id' => '1'],
         'en' => ['name' => 'English', 'language_id' => '2'],
@@ -226,8 +225,8 @@ the language_id as the identifier for each language.
 
 ### Fallback
 
-Sometimes translations can be missing. In this case we can use a fallback 
-translation to prevent missing content on a page. 
+Sometimes translations can be missing. In this case we can use a fallback
+translation to prevent missing content on a page.
 
 ```php
     'use_fallback' => true,
@@ -254,9 +253,9 @@ or
 ### Native mode
 
 Sometimes content has already been added to a table that later needs to be translated.
-To prevent the mess of migrating existing content into our translation tables 
+To prevent the mess of migrating existing content into our translation tables
 we have the option to use native mode. This will assume the default content lives
-in the table of the translated model. 
+in the table of the translated model.
 
 ```php
     'native_mode' => true
@@ -272,12 +271,12 @@ you set it to be here.
     'locale_key' => 'language_id',
 ```
 
-This will also set the value pushed into the request by the middleware. 
+This will also set the value pushed into the request by the middleware.
 
 ### Locale column
 
 We need to identify the current locale by calling `app()->getLocale()` and find
-the corresponding language in the database. In case your language identifier is 
+the corresponding language in the database. In case your language identifier is
 called something other than 'locale' in the DB, you can set it here:
 
 ```php
@@ -288,7 +287,7 @@ called something other than 'locale' in the DB, you can set it here:
 
 It gets tricky when your translated models are output in an array or JSON format.
 If the translation isn't loaded into the model it will get omitted when either
-function is called. With this setting you can force the translation into the model. 
+function is called. With this setting you can force the translation into the model.
 Beware of unnecessary n-queries!
 
 ```php
@@ -313,7 +312,7 @@ So if your model is `\MyApp\Models\Country`, the default translation would be `\
 To use a custom class as translation model, define the translation class (including the namespace) as parameter. For example:
 
 ```php
-<?php 
+<?php
 
 namespace MyApp\Models;
 
@@ -352,20 +351,20 @@ class Country extends Eloquent implements PolyTrans
 }
 ```
 
-By implementing the PolyTrans contract TranslatableDB knows that it needs to 
+By implementing the PolyTrans contract TranslatableDB knows that it needs to
 handle translations differently. The translation key needs to be set as well
 because otherwise TranslatableDB will assume the key automatically which doesn't
-work with a polymorphic relationship. 
+work with a polymorphic relationship.
 
 ## Middleware
 
 ### Default
 
-By default the middleware is pushed into the kernel by the service provider. 
+By default the middleware is pushed into the kernel by the service provider.
 If DB use is set to true in the config, the middleware resolves the language
 model set in the config and loads the 'language_id' parameter into every request.
 With this language_id property the corresponding translation is automatically
-loaded into the model. 
+loaded into the model.
 
 ### Custom
 
@@ -377,4 +376,3 @@ set this in the config:
 ```
 
 Then you need to manually register the middleware for the routes where needed.
-
