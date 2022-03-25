@@ -9,10 +9,10 @@ class TranslatableDBServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/translatabledb.php' => config_path('translatabledb.php'),
+            __DIR__ . '/../config/translatabledb.php' => config_path('translatabledb.php'),
         ]);
         //Register the middleware
-        if(config('translatabledb.middleware_default')){
+        if (config('translatabledb.middleware_default')) {
             $this->app['Illuminate\Contracts\Http\Kernel']->pushMiddleware(Middleware\LanguageIdentification::class);
         }
     }
@@ -23,7 +23,8 @@ class TranslatableDBServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/translatabledb.php', 'translatabledb'
+            __DIR__ . '/../config/translatabledb.php',
+            'translatabledb'
         );
     }
 }

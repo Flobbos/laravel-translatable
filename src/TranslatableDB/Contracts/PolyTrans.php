@@ -2,6 +2,7 @@
 
 namespace Flobbos\TranslatableDB\Contracts;
 
-interface PolyTrans {
+interface PolyTrans
+{
     //
 }

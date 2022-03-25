@@ -13,7 +13,7 @@ return [
     |
     */
     'use_db' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Use Database
@@ -23,7 +23,7 @@ return [
     |
     */
     'language_model' => 'App\Language',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Language Array
@@ -35,11 +35,11 @@ return [
     |
     */
     'language_array'        => [
-	    'de' => ['name' => 'Deutsch', 'language_id' => '1'],
-	    'en' => ['name' => 'English', 'language_id' => '2'],
-	    'fr' => ['name' => 'Français', 'language_id' => '3']
+        'de' => ['name' => 'Deutsch', 'language_id' => '1'],
+        'en' => ['name' => 'English', 'language_id' => '2'],
+        'fr' => ['name' => 'Français', 'language_id' => '3']
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Use fallback
@@ -54,7 +54,7 @@ return [
     |
     */
     'use_fallback' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Fallback Locale (config based)
@@ -66,7 +66,7 @@ return [
     |
     */
     'fallback_locale' => 'de',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Fallback Locale ID (database)
@@ -78,7 +78,7 @@ return [
     |
     */
     'fallback_locale_id' => 1,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Native mode
@@ -103,7 +103,7 @@ return [
     |
     */
     'locale_key' => 'language_id',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Locale column name
@@ -126,7 +126,7 @@ return [
     |
      */
     'to_array_always_loads_translations' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Load translation ID into every route
@@ -138,7 +138,7 @@ return [
     |
      */
     'middleware_default' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Handle polymorphic translations

@@ -40,6 +40,7 @@ which deals with saving content in your database in a compatible way.
 
 | Laravel | Translatable |
 | :------ | :----------- |
+| 9.x     | 1.4.\*       |
 | 8.x     | 1.4.\*       |
 | 7.x     | 1.4.\*       |
 | 6.x     | 1.4.\*       |

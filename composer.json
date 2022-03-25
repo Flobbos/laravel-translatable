@@ -1,7 +1,12 @@
 {
     "name": "flobbos/laravel-translatable-db",
     "description": "A Laravel package for multilingual models",
-    "keywords": ["laravel", "translation", "language", "database"],
+    "keywords": [
+        "laravel",
+        "translation",
+        "language",
+        "database"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -25,9 +30,7 @@
         "psr-4": {
             "Flobbos\\TranslatableDB\\": "src/TranslatableDB/"
         },
-        "classmap": [
-        ]
+        "classmap": []
     },
-
     "minimum-stability": "dev"
 }
